@@ -158,10 +158,12 @@ public class CSVLoader {
 			currentClass.setAvailableArmors(checkArmor(currentArray[4]));
 			currentClass.setAvailableWeapons(checkWeapons(currentArray[5]));
 			currentClass.setImplement(currentArray[6].split(";"));
+			currentClass.setDefenseBonus(checkDefBonuses(currentArray[7]));
 			currentClass.setBaseHP(Integer.parseInt(currentArray[8]));
 			currentClass.setHpPerLevel(Integer.parseInt(currentArray[9]));
 			currentClass.setHealingSurgesPerDay(Integer
 					.parseInt(currentArray[10]));
+			currentClass.setBuildOptions(currentArray[12].split(";"));
 
 			List<String> classFeatures = new ArrayList<String>();
 			for (int j = 13; j < currentArray.length; j++) {
@@ -237,5 +239,20 @@ public class CSVLoader {
 			}
 		}
 		return availWeapons;
+	}
+
+	private static int[] checkDefBonuses(String toSplit) {
+		String[] bonuses = toSplit.split(";");
+		int[] bonusDef = new int[3];
+		for (String s : bonuses) {
+			if (s.charAt(1) == 'F') {
+				bonusDef[0] = Integer.parseInt(s.charAt(0) + "");
+			} else if (s.charAt(1) == 'R') {
+				bonusDef[1] = Integer.parseInt(s.charAt(0) + "");
+			} else if (s.charAt(1) == 'W') {
+				bonusDef[2] = Integer.parseInt(s.charAt(0) + "");
+			}
+		}
+		return bonusDef;
 	}
 }

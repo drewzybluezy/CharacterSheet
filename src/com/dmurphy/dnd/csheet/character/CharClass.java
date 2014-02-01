@@ -11,9 +11,11 @@ public class CharClass {
 	private boolean[] availableArmors;
 	private boolean[] availableWeapons;
 	private String[] implement;
+	private int[] defenseBonus;
 	private int baseHP;
 	private int hpPerLevel;
 	private int healingSurgesPerDay;
+	private String[] buildOptions;
 	private List<String> features;
 
 	public enum Role {
@@ -110,6 +112,22 @@ public class CharClass {
 
 	public void setAvailableWeapons(boolean[] availableWeapons) {
 		this.availableWeapons = availableWeapons;
+	}
+
+	public int[] getDefenseBonus() {
+		return defenseBonus;
+	}
+
+	public void setDefenseBonus(int[] defenseBonus) {
+		this.defenseBonus = defenseBonus;
+	}
+
+	public String[] getBuildOptions() {
+		return buildOptions;
+	}
+
+	public void setBuildOptions(String[] buildOptions) {
+		this.buildOptions = buildOptions;
 	}
 
 }

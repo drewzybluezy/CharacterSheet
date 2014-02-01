@@ -178,7 +178,7 @@ public class ClassFragment extends Fragment {
 		weapons += findWeaponGroup(27, 31, "Superior Melee");
 		weapons += findWeaponGroup(31, 34, "Simple Ranged");
 		weapons += findWeaponGroup(34, 36, "Military Ranged");
-		
+
 		if (weapons.lastIndexOf(',') == (weapons.length() - 2)) {
 			weapons = weapons.substring(0, weapons.length() - 2);
 		}
@@ -194,6 +194,29 @@ public class ClassFragment extends Fragment {
 			}
 		}
 
+		String defBonuses = "";
+		int[] bonuses = c.getDefenseBonus();
+		if (bonuses[0] > 0) {
+			defBonuses += "+" + bonuses[0] + " Fortitude, ";
+		}
+		if (bonuses[1] > 0) {
+			defBonuses += "+" + bonuses[1] + " Reflex, ";
+		}
+		if (bonuses[2] > 0) {
+			defBonuses += "+" + bonuses[2] + " Will, ";
+		}
+		if (defBonuses.lastIndexOf(',') == (defBonuses.length() - 2)) {
+			defBonuses = defBonuses.substring(0, defBonuses.length() - 2);
+		}
+
+		String buildOptions = "";
+		for (String s : c.getBuildOptions()) {
+			buildOptions += s + ", ";
+		}
+		if (buildOptions.lastIndexOf(',') == (buildOptions.length() - 2)) {
+			buildOptions = buildOptions.substring(0, buildOptions.length() - 2);
+		}
+
 		String features = "";
 		for (String s : c.getFeatures()) {
 			features += s + ", ";
@@ -204,10 +227,12 @@ public class ClassFragment extends Fragment {
 
 		String descript = "Role: " + role + "\nPower Source: " + source
 				+ "\n\nArmor: " + armor + "\n\nWeapons: " + weapons + implement
-				+ "\n\nHP @ Lvl 1: " + c.getBaseHP() + " + Cons. score"
-				+ "\nHP/Lvl: " + c.getHpPerLevel() + "\nHealing Surges/Day: "
+				+ "\n\nBonuses to Defense: " + defBonuses + "\n\nHP @ Lvl 1: "
+				+ c.getBaseHP() + " + Cons. score" + "\nHP/Lvl: "
+				+ c.getHpPerLevel() + "\nHealing Surges/Day: "
 				+ c.getHealingSurgesPerDay() + " + Cons. mod"
-				+ "\n\nClass Features: " + features;
+				+ "\n\nBuild options: " + buildOptions + "\n\nClass Features: "
+				+ features;
 		description.setText(descript);
 	}
 
