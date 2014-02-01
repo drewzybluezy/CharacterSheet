@@ -51,8 +51,8 @@
                 android:contentDescription="@string/race"
                 android:src="@drawable/dragonborn" />
 
-            <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
-                android:id="@+id/description"
+            <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -60,11 +60,16 @@
                 android:paddingBottom="40dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="5dp"
-                android:paddingTop="40dp"
-                android:text=""
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                android:paddingTop="50dp" >
 
+                <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+                    android:id="@+id/description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+            </ScrollView>
         </LinearLayout>
 
         <LinearLayout
@@ -89,9 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp" >
-
             </ListView>
-
         </LinearLayout>
     </LinearLayout>
 

@@ -63,6 +63,8 @@ public class AbilityFragment extends Fragment {
 								Integer.parseInt(charisma.getSelectedItem()
 										.toString()));
 
+				activity.getCharacter().setAbilityFlag(true);
+
 				vibe.vibrate(50);
 				activity.swapFragment(new SkillsFragment(), "skills_fragment");
 			}
@@ -76,7 +78,17 @@ public class AbilityFragment extends Fragment {
 			}
 		});
 
+		if (activity.getCharacter().areAbilitiesSet()) {
+			strength.setSelection(activity.getCharacter().getStrength() - 10);
+			constitution
+					.setSelection(activity.getCharacter().getConstitution() - 10);
+			dexterity.setSelection(activity.getCharacter().getDexterity() - 10);
+			intelligence
+					.setSelection(activity.getCharacter().getIntelligence() - 10);
+			wisdom.setSelection(activity.getCharacter().getWisdom() - 10);
+			charisma.setSelection(activity.getCharacter().getCharisma() - 10);
+		}
+
 		return v;
 	}
-
 }

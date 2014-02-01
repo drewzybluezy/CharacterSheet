@@ -55,7 +55,7 @@ public class RaceFragment extends Fragment {
 
 		description = (TextView) v.findViewById(R.id.description);
 		description
-				.setText("\nClick on a race to find out more information about racial bonuses and features.");
+				.setText("Click on a race to find out more information about racial bonuses and features.");
 
 		picture = (ImageView) v.findViewById(R.id.picture);
 		picture.setImageResource(R.drawable.idle);
@@ -123,12 +123,12 @@ public class RaceFragment extends Fragment {
 		String ability = "";
 		for (int i = 0; i < abilityMods.length; i++) {
 			if (abilityMods[i] > 0) {
-				ability += " +2 " + CSheetReusables.abilityNames[i] + ",";
+				ability += "+2 " + CSheetReusables.abilityNames[i] + ", ";
 			}
 		}
 
 		if (ability.length() >= 1) {
-			ability = ability.substring(0, ability.length() - 1);
+			ability = ability.substring(0, ability.length() - 2);
 		} else if (race.getName().equals("Human")) {
 			ability = "+2 to one ability score of choice";
 		}
@@ -146,12 +146,12 @@ public class RaceFragment extends Fragment {
 		String skills = "";
 		for (int i = 0; i < skillMods.length; i++) {
 			if (skillMods[i] > 0) {
-				skills += " +2 " + CSheetReusables.skillNames[i] + ",";
+				skills += "+2 " + CSheetReusables.skillNames[i] + ", ";
 			}
 		}
 
 		if (skills.length() >= 1) {
-			skills = skills.substring(0, skills.length() - 1);
+			skills = skills.substring(0, skills.length() - 2);
 		} else if (race.getName().equals("Human")) {
 			skills = "Extra Skill From Class List";
 		}
@@ -167,9 +167,9 @@ public class RaceFragment extends Fragment {
 			feature = feature.substring(0, feature.length() - 2);
 		}
 
-		String descript = "\nAbility Scores: " + ability + "\n\nSize: "
-				+ race.getSize() + "\n\nSpeed: " + race.getSpeed()
-				+ "\n\nVision: " + race.getSight() + "\n\nLanguages: Common, "
+		String descript = "Ability Scores: " + ability + "\n\nSize: "
+				+ race.getSize() + "\nSpeed: " + race.getSpeed()
+				+ "\nVision: " + race.getSight() + "\nLanguages: Common, "
 				+ languageDisplay + "\n\nSkills: " + skills + "\n\nFeatures: "
 				+ feature;
 		description.setText(descript);

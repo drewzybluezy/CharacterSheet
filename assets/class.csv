@@ -1,8 +1,8 @@
 Cleric,cleric,L,div,cloth;leather;hide;chain,sm;sr,Holy Symbol,2W,12,5,7,Rel/3!Arc;Dipl;Heal;Hist;Ins;Rel,Battle;Devoted,Channel Divinity,Healer's Lore,Healing Word,Ritual Casting,
 Fighter,fighter,D,mart,cloth;leather;hide;chain;scale;ls;hs,sm;mm;sr;mr,,2F,15,6,9,3!Ath;Endur;Heal;Intim;Street,Great weapon;Guardian,Combat Challenge,Combat Superiority,Fighter Weapon Talent,,
-Paladin,paladin,D,div,cloth;leather;hide;chain;scale;plate;ls;hs,sm;mm;s,Holy Symbol,1F;1R;1W,15,6,10,Rel/3!Dipl;Endur;Heal;Hist;Ins;Intim;Rel,Avenging;Protecting,Channel Divinity,Divine Challenge,Lay On Hands,,
+Paladin,paladin,D,div,cloth;leather;hide;chain;scale;plate;ls;hs,sm;mm;sr,Holy Symbol,1F;1R;1W,15,6,10,Rel/3!Dipl;Endur;Heal;Hist;Ins;Intim;Rel,Avenging;Protecting,Channel Divinity,Divine Challenge,Lay On Hands,,
 Ranger,ranger,S,mart,cloth;leather;hide,sm;mm;sr;mr,,1F;1R,12,5,6,Dung;Nat/4!Acro;Ath;Dung;Endur;Heal;Nat;Perc;Stealth,Archer;Two-blade,Fighting Style,Hunter's Quarry,Prime Shot,,
-Rogue,rogue,S,mart,cloth;leather,dag;handcbow;shur;sling;ssword,,2R,12,5,6,Stealth_Thiev/4!Acro;Ath;Bluff;Dung;Ins;Intim;Perc;Stealth;Street;Thiev,Brawny;Trickster,First Strike,Rogue Tactics,Rogue Weapon Talent,Sneak Attack,
+Rogue,rogue,S,mart,cloth;leather,dag;hcbw;shkn;slng;sswd,,2R,12,5,6,Stealth_Thiev/4!Acro;Ath;Bluff;Dung;Ins;Intim;Perc;Stealth;Street;Thiev,Brawny;Trickster,First Strike,Rogue Tactics,Rogue Weapon Talent,Sneak Attack,
 Warlock,warlock,S,arc,cloth;leather,sm;sr,Rods;Wands,1R;1W,12,5,6,4!Arc;Bluff;Hist;Ins;Intim;Rel;Street;Thiev,Deceptive;Scourge,Eldritch Blast,Eldritch Pact,Prime Shot,Shadow Walk,Warlock's Curse
 Warlord,warlord,L,mart,cloth;leather;hide;chain;ls,sm;mm;sr,,1F;1W,12,5,7,4!Ath;Dipl;Endur;Heal;Hist;Intim,Inspiring;Tactical,Combat Leader,Commanding Presence,Inspiring Word,,
-Wizard,wizard,C,arc,cloth,dag;qstaff,Orbs;Staffs;Wands,2W,10,4,6,Arc/3!Arc;Dipl;Dung;Hist;Ins;Nat;Rel,Control;War,Arcane Implement Mastery,Cantrips,Ritual Casting,Spellbook,
+Wizard,wizard,C,arc,cloth,dag;qstf,Orbs;Staffs;Wands,2W,10,4,6,Arc/3!Arc;Dipl;Dung;Hist;Ins;Nat;Rel,Control;War,Arcane Implement Mastery,Cantrips,Ritual Casting,Spellbook,
