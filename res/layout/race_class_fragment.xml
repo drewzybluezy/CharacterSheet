@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <com.dmurphy.dnd.csheet.fantasy.FantasyButton
+        android:id="@+id/nextButton"
+        android:layout_width="115dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/scroll"
+        android:text="@string/next" />
+
+    <com.dmurphy.dnd.csheet.fantasy.FantasyButton
+        android:id="@+id/previousButton"
+        android:layout_width="115dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/scroll"
+        android:text="@string/previous" />
+
+    <LinearLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/nextButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:baselineAligned="false" >
+
+        <LinearLayout
+            android:id="@+id/detailContainer"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".6"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:contentDescription="@string/race"
+                android:src="@drawable/dragonborn" />
+
+            <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+                android:id="@+id/description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/scroll_square"
+                android:paddingBottom="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:paddingTop="40dp"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".4"
+            android:orientation="vertical" >
+
+            <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+                android:id="@+id/abilityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/race"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="32sp" />
+
+            <ListView
+                android:id="@+id/raceClassList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
+
+            </ListView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+        android:id="@+id/name"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16sp" />
+
+</RelativeLayout>

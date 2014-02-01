@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <com.dmurphy.dnd.csheet.fantasy.FantasyButton
+        android:id="@+id/nextButton"
+        android:layout_width="115dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/scroll"
+        android:text="@string/next" />
+
+    <com.dmurphy.dnd.csheet.fantasy.FantasyButton
+        android:id="@+id/previousButton"
+        android:layout_width="115dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/scroll"
+        android:text="@string/previous" />
+
+    <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+        android:id="@+id/ability_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/abilities"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="32sp" />
+
+    <LinearLayout
+        android:id="@+id/strengthContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ability_splash"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Spinner
+            android:id="@+id/strength"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:entries="@array/ability_scores" />
+
+        <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+            android:id="@+id/strength_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/strength"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/constitutionContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/strengthContainer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Spinner
+            android:id="@+id/constitution"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:entries="@array/ability_scores" />
+
+        <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+            android:id="@+id/constitution_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/constitution"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dexterityContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/constitutionContainer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Spinner
+            android:id="@+id/dexterity"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:entries="@array/ability_scores" />
+
+        <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+            android:id="@+id/dexterity_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/dexterity"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/intelligenceContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dexterityContainer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Spinner
+            android:id="@+id/intelligence"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:entries="@array/ability_scores" />
+
+        <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+            android:id="@+id/intelligence_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/intelligence"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wisdomContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/intelligenceContainer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Spinner
+            android:id="@+id/wisdom"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:entries="@array/ability_scores" />
+
+        <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+            android:id="@+id/wisdom_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/wisdom"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/charismaContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/wisdomContainer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <Spinner
+            android:id="@+id/charisma"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:entries="@array/ability_scores" />
+
+        <com.dmurphy.dnd.csheet.fantasy.FantasyTextView
+            android:id="@+id/charisma_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/charisma"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+</RelativeLayout>

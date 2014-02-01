@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/jade_vines"
+    tools:context=".MainActivity" >
+
+    <FrameLayout
+        android:id="@+id/frag_container"
+        android:name="com.dmurphy.dnd.csheet.fragment.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

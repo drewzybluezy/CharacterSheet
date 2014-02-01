@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Character Sheet</string>
+    <string name="new_character">New Character</string>
+    <string name="load_character">Load Character</string>
+    <string name="about">About</string>
+    <string name="title">4th Edition Character Builder</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="cancel">Cancel</string>
+    <string name="name">Character</string>
+    <string name="char_name">Character Name:</string>
+    <string name="abilities">Ability Scores</string>
+    <string name="strength">Strength</string>
+    <string name="constitution">Constitution</string>
+    <string name="dexterity">Dexterity</string>
+    <string name="intelligence">Intelligence</string>
+    <string name="wisdom">Wisdom</string>
+    <string name="charisma">Charisma</string>
+
+    <string-array name="ability_scores">
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+    </string-array>
+
+    <string name="skills">Skills</string>
+    <string name="feats">Feats</string>
+    <string name="at_will">At-Will Powers</string>
+    <string name="encounter">Encounter Powers</string>
+    <string name="daily">Daily Powers</string>
+    <string name="race">Race</string>
+    <string name="class_string">Class</string>
+    <string name="armor">Armor</string>
+    <string name="weapons">Weapons</string>
+    <string name="equipment">Equipment</string>
+    <string name="character_sheet">Character Sheet</string>
+    <string name="load">Load</string>
+    <string name="back">Back</string>
+
+</resources>
