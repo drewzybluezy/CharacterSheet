@@ -15,6 +15,12 @@ public class CharClass {
 	private int baseHP;
 	private int hpPerLevel;
 	private int healingSurgesPerDay;
+
+	private String description = null;
+
+	private List<Integer> availableSkillGroups;
+	private int[] availableSkills;
+
 	private String[] buildOptions;
 	private List<String> features;
 
@@ -128,6 +134,30 @@ public class CharClass {
 
 	public void setBuildOptions(String[] buildOptions) {
 		this.buildOptions = buildOptions;
+	}
+
+	public List<Integer> getAvailableSkillGroups() {
+		return availableSkillGroups;
+	}
+
+	public void setAvailableSkillGroups(List<Integer> availableSkillGroups) {
+		this.availableSkillGroups = availableSkillGroups;
+	}
+
+	public int[] getAvailableSkills() {
+		return availableSkills;
+	}
+
+	public void setAvailableSkills(int[] availableSkills) {
+		this.availableSkills = availableSkills;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

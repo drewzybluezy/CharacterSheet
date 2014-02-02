@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.dmurphy.dnd.csheet.CSheetReusables;
 import com.dmurphy.dnd.csheet.MainActivity;
 import com.dmurphy.dnd.csheet.R;
 import com.dmurphy.dnd.csheet.character.Race;
@@ -117,76 +116,13 @@ public class RaceFragment extends Fragment {
 		picture.setImageResource(context.getResources().getIdentifier(
 				race.getPicName(), "drawable", context.getPackageName()));
 		name.setText(race.getName());
-
-		int[] abilityMods = race.getAbilityMods();
-
-		String ability = "";
-		for (int i = 0; i < abilityMods.length; i++) {
-			if (abilityMods[i] > 0) {
-				ability += "+2 " + CSheetReusables.abilityNames[i] + ", ";
-			}
-		}
-
-		if (ability.length() >= 1) {
-			ability = ability.substring(0, ability.length() - 2);
-		} else if (race.getName().equals("Human")) {
-			ability = "+2 to one ability score of choice";
-		}
-
-		String[] languages = race.getLanguages();
-		String languageDisplay = getFormattedLanguage(languages[0]) + ", "
-				+ getFormattedLanguage(languages[1]);
-		if (languageDisplay.lastIndexOf(',') == (languageDisplay.length() - 2)) {
-			languageDisplay = languageDisplay.substring(0,
-					languageDisplay.length() - 2);
-		}
-
-		int[] skillMods = race.getSkillMods();
-
-		String skills = "";
-		for (int i = 0; i < skillMods.length; i++) {
-			if (skillMods[i] > 0) {
-				skills += "+2 " + CSheetReusables.skillNames[i] + ", ";
-			}
-		}
-
-		if (skills.length() >= 1) {
-			skills = skills.substring(0, skills.length() - 2);
-		} else if (race.getName().equals("Human")) {
-			skills = "Extra Skill From Class List";
-		}
-
-		List<String> features = race.getFeatures();
-
-		String feature = "";
-		for (int i = 0; i < features.size(); i++) {
-			feature += features.get(i) + ", ";
-		}
-
-		if (feature.length() >= 1) {
-			feature = feature.substring(0, feature.length() - 2);
-		}
-
-		String descript = "Ability Scores: " + ability + "\n\nSize: "
-				+ race.getSize() + "\nSpeed: " + race.getSpeed()
-				+ "\nVision: " + race.getSight() + "\nLanguages: Common, "
-				+ languageDisplay + "\n\nSkills: " + skills + "\n\nFeatures: "
-				+ feature;
-		description.setText(descript);
+		description.setText(race.getDescription());
 
 	}
 
-	public String getFormattedLanguage(String toFormat) {
-		for (int i = 0; i < CSheetReusables.languageAbbrevs.length; i++) {
-			if (toFormat.equals(CSheetReusables.languageAbbrevs[i])) {
-				return CSheetReusables.languageNames[i];
-			}
 
-			if (toFormat.equals("CHOICE"))
-				return "Choice";
-		}
-		return "";
-	}
+
+
 
 	private class StableArrayAdapter extends ArrayAdapter<String> {
 

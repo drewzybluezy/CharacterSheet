@@ -108,7 +108,7 @@ public class CSVLoader {
 			}
 
 			currentRace.setFeatures(raceFeatures);
-
+			currentRace.setDescription(buildRaceDescription(currentRace));
 			races.add(currentRace);
 		}
 
@@ -163,6 +163,9 @@ public class CSVLoader {
 			currentClass.setHpPerLevel(Integer.parseInt(currentArray[9]));
 			currentClass.setHealingSurgesPerDay(Integer
 					.parseInt(currentArray[10]));
+
+			setClassSkills(currentArray[11], currentClass);
+
 			currentClass.setBuildOptions(currentArray[12].split(";"));
 
 			List<String> classFeatures = new ArrayList<String>();
@@ -171,11 +174,45 @@ public class CSVLoader {
 			}
 
 			currentClass.setFeatures(classFeatures);
-
+			currentClass.setDescription(buildClassDescription(currentClass));
 			classes.add(currentClass);
 		}
 
 		return classes;
+	}
+
+	private static void setClassSkills(String toSplit, CharClass currentClass) {
+		ArrayList<Integer> availableSkillGroups = new ArrayList<Integer>();
+		availableSkillGroups.add(Integer.valueOf(0));
+
+		int[] availableSkills = new int[CSheetReusables.skillAbbrevs.length];
+		for (String s : toSplit.split("/")) {
+			if (s.charAt(0) == '&') {
+				s = s.substring(1, s.length());
+				for (String t : s.split(";")) {
+					for (int i = 0; i < CSheetReusables.skillAbbrevs.length; i++) {
+						if (t.equals(CSheetReusables.skillAbbrevs[i])) {
+							availableSkills[i] = -1;
+						}
+					}
+				}
+			} else if (s.charAt(1) == '!') {
+				availableSkillGroups.add(Integer.valueOf(Integer.parseInt(s
+						.charAt(0) + "")));
+				s = s.substring(2, s.length());
+				for (String t : s.split(";")) {
+					for (int i = 0; i < CSheetReusables.skillAbbrevs.length; i++) {
+						if (t.equals(CSheetReusables.skillAbbrevs[i])
+								&& availableSkills[i] != -1) {
+							availableSkills[i] = availableSkillGroups.size() - 1;
+						}
+					}
+				}
+			}
+		}
+
+		currentClass.setAvailableSkillGroups(availableSkillGroups);
+		currentClass.setAvailableSkills(availableSkills);
 	}
 
 	private static void checkMods(int[] toMod, int index, String arg0,
@@ -254,5 +291,239 @@ public class CSVLoader {
 			}
 		}
 		return bonusDef;
+	}
+
+	private static String buildRaceDescription(Race race) {
+		int[] abilityMods = race.getAbilityMods();
+
+		String ability = "";
+		for (int i = 0; i < abilityMods.length; i++) {
+			if (abilityMods[i] > 0) {
+				ability += "+2 " + CSheetReusables.abilityNames[i] + ", ";
+			}
+		}
+
+		if (ability.length() >= 1) {
+			ability = ability.substring(0, ability.length() - 2);
+		} else if (race.getName().equals("Human")) {
+			ability = "+2 to one ability score of choice";
+		}
+
+		String[] languages = race.getLanguages();
+		String languageDisplay = getFormattedLanguage(languages[0]) + ", "
+				+ getFormattedLanguage(languages[1]);
+		if (languageDisplay.lastIndexOf(',') == (languageDisplay.length() - 2)) {
+			languageDisplay = languageDisplay.substring(0,
+					languageDisplay.length() - 2);
+		}
+
+		int[] skillMods = race.getSkillMods();
+
+		String skills = "";
+		for (int i = 0; i < skillMods.length; i++) {
+			if (skillMods[i] > 0) {
+				skills += "+2 " + CSheetReusables.skillNames[i] + ", ";
+			}
+		}
+
+		if (skills.length() >= 1) {
+			skills = skills.substring(0, skills.length() - 2);
+		} else if (race.getName().equals("Human")) {
+			skills = "Extra Skill From Class List";
+		}
+
+		List<String> features = race.getFeatures();
+
+		String feature = "";
+		for (int i = 0; i < features.size(); i++) {
+			feature += features.get(i) + ", ";
+		}
+
+		if (feature.length() >= 1) {
+			feature = feature.substring(0, feature.length() - 2);
+		}
+
+		String descript = "Ability Scores: " + ability + "\n\nSize: "
+				+ race.getSize() + "\nSpeed: " + race.getSpeed() + "\nVision: "
+				+ race.getSight() + "\nLanguages: Common, " + languageDisplay
+				+ "\n\nSkills: " + skills + "\n\nFeatures: " + feature;
+		race.setDescription(descript);
+		return descript;
+	}
+
+	private static String buildClassDescription(CharClass c) {
+		String role = "";
+		switch (c.getRole()) {
+		case LEADER:
+			role = "Leader";
+			break;
+		case STRIKER:
+			role = "Striker";
+			break;
+		case DEFENDER:
+			role = "Defender";
+			break;
+		case CONTROLLER:
+			role = "Controller";
+			break;
+		}
+
+		String source = "";
+		switch (c.getSource()) {
+		case MARTIAL:
+			source = "Martial";
+			break;
+		case ARCANE:
+			source = "Arcane";
+			break;
+		case DIVINE:
+			source = "Divine";
+			break;
+		case PSIONIC:
+			source = "Psionic";
+			break;
+		case PRIMAL:
+			source = "Primal";
+			break;
+		case SHADOW:
+			source = "Shadow";
+			break;
+		}
+
+		boolean[] availArmors = c.getAvailableArmors();
+
+		String armor = "";
+		for (int i = 0; i < availArmors.length; i++) {
+			if (availArmors[i]) {
+				armor += CSheetReusables.armorNames[i] + ", ";
+			}
+		}
+		if (armor.lastIndexOf(',') == (armor.length() - 2)) {
+			armor = armor.substring(0, armor.length() - 2);
+		}
+
+		boolean[] availWeapons = c.getAvailableWeapons();
+
+		String weapons = "";
+		weapons += findWeaponGroup(0, 10, "Simple Melee", availWeapons);
+		weapons += findWeaponGroup(10, 27, "Military Melee", availWeapons);
+		weapons += findWeaponGroup(27, 31, "Superior Melee", availWeapons);
+		weapons += findWeaponGroup(31, 34, "Simple Ranged", availWeapons);
+		weapons += findWeaponGroup(34, 36, "Military Ranged", availWeapons);
+
+		if (weapons.lastIndexOf(',') == (weapons.length() - 2)) {
+			weapons = weapons.substring(0, weapons.length() - 2);
+		}
+
+		String implement = "";
+		if (!c.getImplement()[0].equals("")) {
+			implement = "\n\nImplements: ";
+			for (String s : c.getImplement()) {
+				implement += s + ", ";
+			}
+			if (implement.lastIndexOf(',') == (implement.length() - 2)) {
+				implement = implement.substring(0, implement.length() - 2);
+			}
+		}
+
+		String defBonuses = "";
+		int[] bonuses = c.getDefenseBonus();
+		if (bonuses[0] > 0) {
+			defBonuses += "+" + bonuses[0] + " Fortitude, ";
+		}
+		if (bonuses[1] > 0) {
+			defBonuses += "+" + bonuses[1] + " Reflex, ";
+		}
+		if (bonuses[2] > 0) {
+			defBonuses += "+" + bonuses[2] + " Will, ";
+		}
+		if (defBonuses.lastIndexOf(',') == (defBonuses.length() - 2)) {
+			defBonuses = defBonuses.substring(0, defBonuses.length() - 2);
+		}
+
+		String skills = "";
+		List<Integer> skillGroups = c.getAvailableSkillGroups();
+		int[] availableSkills = c.getAvailableSkills().clone();
+
+		for (int i = 0; i < availableSkills.length; i++) {
+			if (availableSkills[i] == -1) {
+				skills += CSheetReusables.skillNames[i] + ", ";
+			}
+		}
+
+		for (int i = 0; i < availableSkills.length; i++) {
+			if (availableSkills[i] > 0) {
+				skills += "Choose " + skillGroups.get(availableSkills[i])
+						+ " from: ";
+				for (int j = i; j < availableSkills.length; j++) {
+					if (availableSkills[i] == availableSkills[j]) {
+						skills += CSheetReusables.skillNames[j] + ", ";
+						if (j != i)
+							availableSkills[j] = 0;
+					}
+				}
+			}
+		}
+
+		if (skills.lastIndexOf(',') == (skills.length() - 2)) {
+			skills = skills.substring(0, skills.length() - 2);
+		}
+
+		String buildOptions = "";
+		for (String s : c.getBuildOptions()) {
+			buildOptions += s + ", ";
+		}
+		if (buildOptions.lastIndexOf(',') == (buildOptions.length() - 2)) {
+			buildOptions = buildOptions.substring(0, buildOptions.length() - 2);
+		}
+
+		String features = "";
+		for (String s : c.getFeatures()) {
+			features += s + ", ";
+		}
+		if (features.lastIndexOf(',') == (features.length() - 2)) {
+			features = features.substring(0, features.length() - 2);
+		}
+
+		String descript = "Role: " + role + "\nPower Source: " + source
+				+ "\n\nArmor: " + armor + "\n\nWeapons: " + weapons + implement
+				+ "\n\nBonuses to Defense: " + defBonuses + "\n\nHP @ Lvl 1: "
+				+ c.getBaseHP() + " + Cons. score" + "\nHP/Lvl: "
+				+ c.getHpPerLevel() + "\nHealing Surges/Day: "
+				+ c.getHealingSurgesPerDay() + " + Cons. mod"
+				+ "\n\nTrained Skills: " + skills + "\n\nBuild options: "
+				+ buildOptions + "\n\nClass Features: " + features;
+		c.setDescription(descript);
+		return descript;
+	}
+
+	private static String findWeaponGroup(int startIndex, int endIndex,
+			String allFound, boolean[] availWeapons) {
+		boolean flag = true;
+		String currentWeaponGroup = "";
+
+		for (int i = startIndex; i < endIndex; i++) {
+			if (availWeapons[i]) {
+				currentWeaponGroup += CSheetReusables.weaponNames[i] + ", ";
+			} else
+				flag = false;
+		}
+		if (flag) {
+			return allFound + ", ";
+		} else {
+			return currentWeaponGroup;
+		}
+	}
+
+	private static String getFormattedLanguage(String toFormat) {
+		for (int i = 0; i < CSheetReusables.languageAbbrevs.length; i++) {
+			if (toFormat.equals(CSheetReusables.languageAbbrevs[i])) {
+				return CSheetReusables.languageNames[i];
+			}
+
+			if (toFormat.equals("CHOICE"))
+				return "Choice";
+		}
+		return "";
 	}
 }
