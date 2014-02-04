@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.app.Fragment;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -63,6 +64,8 @@ public class EncounterFragment extends Fragment {
 
 		list = (ListView) v.findViewById(R.id.list);
 		list.setAdapter(adapter);
+		list.setDivider(new ColorDrawable(android.R.color.transparent));
+		list.setDividerHeight(30);
 		
 		TextView title = (TextView) v.findViewById(R.id.abilityName);
 		title.setText(R.string.encounter);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.dmurphy.dnd.csheet.MainActivity;
 import com.dmurphy.dnd.csheet.R;
@@ -28,6 +29,9 @@ public class WeaponsFragment extends Fragment {
 		
 		Button previous = (Button) v.findViewById(R.id.previousButton);
 		Button next = (Button) v.findViewById(R.id.nextButton);
+		
+		TextView gold = (TextView) v.findViewById(R.id.gold);
+		gold.setText(activity.getCharacter().getWealth() + "");
 		
 		next.setOnClickListener(new OnClickListener() {
 			@Override

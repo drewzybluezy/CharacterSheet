@@ -19,12 +19,14 @@ public class CharacterBuild {
 	private CharClass classChoice;
 	private Race race;
 
-	private List<Skill> skills;
+	private int[] skills;
 	private List<Power> powers;
 	private List<Feat> feats;
 	private List<Armor> armor;
 	private List<Weapon> weapons;
 	private List<Equipment> equipment;
+
+	private int wealth = 100;
 
 	public String getName() {
 		return name;
@@ -106,14 +108,6 @@ public class CharacterBuild {
 		this.race = race;
 	}
 
-	public List<Skill> getSkills() {
-		return skills;
-	}
-
-	public void setSkills(List<Skill> skills) {
-		this.skills = skills;
-	}
-
 	public List<Power> getPowers() {
 		return powers;
 	}
@@ -160,6 +154,22 @@ public class CharacterBuild {
 
 	public void setAbilityFlag(boolean abilitiesSet) {
 		this.abilitiesSet = abilitiesSet;
+	}
+
+	public int[] getSkills() {
+		return skills;
+	}
+
+	public void setSkills(int[] skills) {
+		this.skills = skills;
+	}
+
+	public int getWealth() {
+		return wealth;
+	}
+
+	public void setWealth(int wealth) {
+		this.wealth = wealth;
 	}
 
 }
