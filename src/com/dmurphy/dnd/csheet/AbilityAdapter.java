@@ -49,8 +49,10 @@ public class AbilityAdapter extends BaseAdapter {
 			v = new AbilityView(mContext, mItems.get(position));
 		} else {
 			v = (AbilityView) convertView;
-			String name = mItems.get(position).getName();
-			v.getName().setText(name);
+			Power power = mItems.get(position);
+			v.getName().setText(power.getName());
+			v.getFlavorText().setText(power.getFlavorText());
+			v.getReq().setText(power.getReqClass() + " " + power.getLevel());
 		}
 		return v;
 	}

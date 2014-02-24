@@ -1,7 +1,6 @@
 package com.dmurphy.dnd.csheet;
 
 import java.util.List;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -11,9 +10,9 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Vibrator;
-
 import com.dmurphy.dnd.csheet.character.CharClass;
 import com.dmurphy.dnd.csheet.character.CharacterBuild;
+import com.dmurphy.dnd.csheet.character.Power;
 import com.dmurphy.dnd.csheet.character.Race;
 import com.dmurphy.dnd.csheet.fragment.MenuFragment;
 import com.dmurphy.dnd.csheet.fragment.NameFragment;
@@ -26,6 +25,7 @@ public class MainActivity extends Activity {
 	private CharacterBuild character = null;
 	private List<Race> races = null;
 	private List<CharClass> classes = null;
+	private List<Power> powers = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainActivity extends Activity {
 
 		races = CSVLoader.initRaces(this);
 		classes = CSVLoader.initClasses(this);
+		powers = CSVLoader.initPowers(this);
 
 		player = MediaPlayer.create(MainActivity.this, R.raw.music);
 		player.start();
@@ -123,5 +124,13 @@ public class MainActivity extends Activity {
 	public void setClasses(List<CharClass> classes) {
 		this.classes = classes;
 	}
+
+    public List<Power> getPowers() {
+        return powers;
+    }
+
+    public void setPowers(List<Power> powers) {
+        this.powers = powers;
+    }
 
 }

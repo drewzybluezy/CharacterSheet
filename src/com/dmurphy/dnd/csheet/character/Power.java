@@ -36,7 +36,7 @@ public class Power {
 	}
 
 	public enum AttackRange {
-		MELEE, CLOSE, AREA, RANGED, PERSONAL
+		MELEE, CLOSE, AREA, RANGED, PERSONAL, WEAPON
 	}
 
 	public enum DamageType {
@@ -44,11 +44,11 @@ public class Power {
 	}
 
 	public enum EffectType {
-		CHARM, CONJURATION, FEAR, HEALING, ILLUSION, POISON, POLYMORPH, RELIABLE, SLEEP, STANCE, TELEPORT, ZONE
+		CHARM, CONJURATION, FEAR, HEALING, ILLUSION, POISON, POLYMORPH, RELIABLE, SLEEP, STANCE, TELEPORT, ZONE, NONE
 	}
 
 	public enum WeaponType {
-		IMPLEMENT, WEAPON
+		IMPLEMENT, WEAPON, NONE
 	}
 
 	public String getName() {

@@ -61,7 +61,20 @@ public class AbilityView extends RelativeLayout {
 
 		name.setText(power.getName());
 		flavorText.setText(power.getFlavorText());
-
+		String freq = "";
+		switch (power.getFreq()) {
+		    case AT_WILL:
+		        freq = "At-Will";
+		        break;
+		    case ENCOUNTER:
+		        freq = "Encounter";
+		        break;
+		    case DAILY:
+		        freq = "Daily";
+		        break;
+		}
+		req.setText(power.getReqClass() + " " + power.getLevel());
+		attributes.setText(freq + " ✦ ");
 	}
 
 	public AbilityView(Context context, AttributeSet attrs, int defStyle) {
