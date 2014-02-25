@@ -26,13 +26,17 @@ public class Power {
 	private String miss;
 	private String effect;
 	private String special;
+	
+	private String formattedReq;
+	private String formattedAttributes;
+	private String formattedEffect;
 
 	public enum Frequency {
 		AT_WILL, ENCOUNTER, DAILY
 	}
 
 	public enum Action {
-		NONE, MINOR, MOVE, STANDARD, FREE
+		NONE, MINOR, MOVE, STANDARD, FREE, IMMEDIATE
 	}
 
 	public enum AttackRange {
@@ -209,6 +213,30 @@ public class Power {
 
 	public void setSpecial(String special) {
 		this.special = special;
+	}
+
+	public String getFormattedReq() {
+		return formattedReq;
+	}
+
+	public void setFormattedReq(String formattedReq) {
+		this.formattedReq = formattedReq;
+	}
+
+	public String getFormattedAttributes() {
+		return formattedAttributes;
+	}
+
+	public void setFormattedAttributes(String formattedAttributes) {
+		this.formattedAttributes = formattedAttributes;
+	}
+
+	public String getFormattedEffect() {
+		return formattedEffect;
+	}
+
+	public void setFormattedEffect(String formattedEffect) {
+		this.formattedEffect = formattedEffect;
 	}
 
 }

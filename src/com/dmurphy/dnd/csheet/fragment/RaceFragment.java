@@ -6,6 +6,9 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -48,7 +51,7 @@ public class RaceFragment extends Fragment {
 
 		title = (TextView) v.findViewById(R.id.abilityName);
 		title.setText(R.string.race);
-		
+
 		name = (TextView) v.findViewById(R.id.name);
 		name.setText("");
 
@@ -93,16 +96,17 @@ public class RaceFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				formatRaceAttributes(races.get(position), parent.getContext());
-				activity.getCharacter().setRace(races.get(position));
+				Race race = races.get(position);
+				new SetImageTask(race, parent.getContext()).execute(race.getPicName());
+				activity.getCharacter().setRace(race);
 				next.setEnabled(true);
 				next.setAlpha(1f);
 			}
 		});
 
 		try {
-			Race savedRace = activity.getCharacter().getRace();
-			formatRaceAttributes(savedRace, v.getContext());
+			Race race = activity.getCharacter().getRace();
+			new SetImageTask(race, v.getContext()).execute(race.getPicName());
 			next.setEnabled(true);
 			next.setAlpha(1f);
 		} catch (NullPointerException e) {
@@ -112,17 +116,36 @@ public class RaceFragment extends Fragment {
 		return v;
 	}
 
-	private void formatRaceAttributes(Race race, Context context) {
-		picture.setImageResource(context.getResources().getIdentifier(
-				race.getPicName(), "drawable", context.getPackageName()));
-		name.setText(race.getName());
-		description.setText(race.getDescription());
+	private class SetImageTask extends AsyncTask<String, Void, Bitmap> {
+		/**
+		 * The system calls this to perform work in a worker thread and delivers
+		 * it the parameters given to AsyncTask.execute()
+		 */
+		private Context context;
+		private Race race;
 
+		private SetImageTask(Race race, Context context) {
+			this.context = context;
+			this.race = race;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			return BitmapFactory.decodeResource(
+					context.getResources(),
+					context.getResources().getIdentifier(urls[0], "drawable",
+							context.getPackageName()));
+		}
+
+		/**
+		 * The system calls this to perform work in the UI thread and delivers
+		 * the result from doInBackground()
+		 */
+		protected void onPostExecute(Bitmap result) {
+			picture.setImageBitmap(result);
+			name.setText(race.getName());
+			description.setText(race.getDescription());
+		}
 	}
-
-
-
-
 
 	private class StableArrayAdapter extends ArrayAdapter<String> {
 

@@ -6,6 +6,9 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -93,17 +96,17 @@ public class ClassFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				formatClassAttributes(classes.get(position),
-						parent.getContext());
-				activity.getCharacter().setClassChoice(classes.get(position));
+				CharClass c = classes.get(position);
+				new SetImageTask(c, parent.getContext()).execute(c.getPicName());
+				activity.getCharacter().setClassChoice(c);
 				next.setEnabled(true);
 				next.setAlpha(1f);
 			}
 		});
 
 		try {
-			CharClass savedClass = activity.getCharacter().getClassChoice();
-			formatClassAttributes(savedClass, v.getContext());
+			CharClass c = activity.getCharacter().getClassChoice();
+			new SetImageTask(c, v.getContext()).execute(c.getPicName());
 			next.setEnabled(true);
 			next.setAlpha(1f);
 		} catch (NullPointerException e) {
@@ -113,11 +116,35 @@ public class ClassFragment extends Fragment {
 		return v;
 	}
 
-	private void formatClassAttributes(CharClass c, Context context) {
-		picture.setImageResource(context.getResources().getIdentifier(
-				c.getPicName(), "drawable", context.getPackageName()));
-		name.setText(c.getName());
-		description.setText(c.getDescription());
+	private class SetImageTask extends AsyncTask<String, Void, Bitmap> {
+		/**
+		 * The system calls this to perform work in a worker thread and delivers
+		 * it the parameters given to AsyncTask.execute()
+		 */
+		private Context context;
+		private CharClass c;
+
+		private SetImageTask(CharClass c, Context context) {
+			this.context = context;
+			this.c = c;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			return BitmapFactory.decodeResource(
+					context.getResources(),
+					context.getResources().getIdentifier(urls[0], "drawable",
+							context.getPackageName()));
+		}
+
+		/**
+		 * The system calls this to perform work in the UI thread and delivers
+		 * the result from doInBackground()
+		 */
+		protected void onPostExecute(Bitmap result) {
+			picture.setImageBitmap(result);
+			name.setText(c.getName());
+			description.setText(c.getDescription());
+		}
 	}
 
 	private class StableArrayAdapter extends ArrayAdapter<String> {

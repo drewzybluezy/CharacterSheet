@@ -34,21 +34,21 @@ public class AbilityView extends RelativeLayout {
 		attributes = (TextView) v.findViewById(R.id.abilityAttributes);
 		effect = (TextView) v.findViewById(R.id.abilityEffect);
 		color = (RelativeLayout) v.findViewById(R.id.abilityColor);
-		
+
 		String[] titleColors = new String[2];
-		
-		switch(power.getFreq()) {
+
+		switch (power.getFreq()) {
 		case AT_WILL:
-			titleColors[0] = "#155C27"; //dark green
-			titleColors[1] = "#219C3F"; //lighter green
+			titleColors[0] = "#155C27"; // dark green
+			titleColors[1] = "#219C3F"; // lighter green
 			break;
 		case ENCOUNTER:
-			titleColors[0] = "#78001E"; //dark red
-			titleColors[1] = "#BF0030"; //lighter red
+			titleColors[0] = "#78001E"; // dark red
+			titleColors[1] = "#BF0030"; // lighter red
 			break;
 		case DAILY:
-			titleColors[0] = "#2E2D2D"; //dark grey
-			titleColors[1] = "#707070"; //lighter grey
+			titleColors[0] = "#2E2D2D"; // dark grey
+			titleColors[1] = "#707070"; // lighter grey
 			break;
 		}
 
@@ -61,20 +61,8 @@ public class AbilityView extends RelativeLayout {
 
 		name.setText(power.getName());
 		flavorText.setText(power.getFlavorText());
-		String freq = "";
-		switch (power.getFreq()) {
-		    case AT_WILL:
-		        freq = "At-Will";
-		        break;
-		    case ENCOUNTER:
-		        freq = "Encounter";
-		        break;
-		    case DAILY:
-		        freq = "Daily";
-		        break;
-		}
-		req.setText(power.getReqClass() + " " + power.getLevel());
-		attributes.setText(freq + " ✦ ");
+		req.setText(power.getFormattedReq());
+		attributes.setText(power.getFormattedAttributes());
 	}
 
 	public AbilityView(Context context, AttributeSet attrs, int defStyle) {

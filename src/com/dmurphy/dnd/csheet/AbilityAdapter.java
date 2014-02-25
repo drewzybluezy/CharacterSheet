@@ -52,7 +52,8 @@ public class AbilityAdapter extends BaseAdapter {
 			Power power = mItems.get(position);
 			v.getName().setText(power.getName());
 			v.getFlavorText().setText(power.getFlavorText());
-			v.getReq().setText(power.getReqClass() + " " + power.getLevel());
+			v.getReq().setText(power.getFormattedReq());
+			v.getAttributes().setText(power.getFormattedAttributes());
 		}
 		return v;
 	}

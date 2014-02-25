@@ -2,7 +2,7 @@ package com.dmurphy.dnd.csheet.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 import android.app.Fragment;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.dmurphy.dnd.csheet.AbilityAdapter;
 import com.dmurphy.dnd.csheet.MainActivity;
 import com.dmurphy.dnd.csheet.R;
