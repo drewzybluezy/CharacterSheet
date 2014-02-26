@@ -5,6 +5,7 @@ import com.dmurphy.dnd.csheet.character.CharClass.Source;
 public class Power {
 
 	private String name;
+	private PowerType powerType;
 	private int level;
 	private String reqClass;
 	private Source source;
@@ -18,9 +19,12 @@ public class Power {
 	private String flavorText;
 
 	private String attackCheck;
+
+	private AreaType areaType;
 	private int aoe;
 	private int range;
 
+	private String requirement;
 	private String trigger;
 	private String hit;
 	private String miss;
@@ -69,12 +73,30 @@ public class Power {
 	}
 
 	public enum AttackRange {
-		MELEE("Melee"), CLOSE("Close"), AREA("Area"), RANGED("Ranged"), PERSONAL(
+		NONE(""), MELEE("Melee"), CLOSE("Close"), AREA("Area"), RANGED("Ranged"), PERSONAL(
 				"Personal"), WEAPON("Melee or Ranged");
 
 		private final String name;
 
 		private AttackRange(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
+	}
+
+	public enum PowerType {
+		NONE(""), ATTACK("Attack "), UTILITY("Utility ");
+
+		private final String name;
+
+		private PowerType(String s) {
 			name = s;
 		}
 
@@ -146,12 +168,38 @@ public class Power {
 		}
 	}
 
+	public enum AreaType {
+		NONE(""), BLAST("blast"), BURST("burst"), WALL("wall"), WEAPON("weapon");
+
+		private final String name;
+
+		private AreaType(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public PowerType getPowerType() {
+		return powerType;
+	}
+
+	public void setPowerType(PowerType powerType) {
+		this.powerType = powerType;
 	}
 
 	public int getLevel() {
@@ -250,6 +298,14 @@ public class Power {
 		this.attackCheck = attackCheck;
 	}
 
+	public AreaType getAreaType() {
+		return areaType;
+	}
+
+	public void setAreaType(AreaType areaType) {
+		this.areaType = areaType;
+	}
+
 	public int getAoe() {
 		return aoe;
 	}
@@ -328,6 +384,14 @@ public class Power {
 
 	public void setFormattedEffect(String formattedEffect) {
 		this.formattedEffect = formattedEffect;
+	}
+
+	public String getRequirement() {
+		return requirement;
+	}
+
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
 	}
 
 }

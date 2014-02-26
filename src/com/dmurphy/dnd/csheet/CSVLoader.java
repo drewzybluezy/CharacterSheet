@@ -13,6 +13,8 @@ import android.content.Context;
 import com.dmurphy.dnd.csheet.character.CharClass;
 import com.dmurphy.dnd.csheet.character.Power;
 import com.dmurphy.dnd.csheet.character.Race;
+import com.dmurphy.dnd.csheet.character.Power.AreaType;
+import com.dmurphy.dnd.csheet.character.Power.PowerType;
 
 public class CSVLoader {
 
@@ -190,10 +192,20 @@ public class CSVLoader {
 			String[] currentArray = csvList.get(i);
 			Power currentPower = new Power();
 			currentPower.setReqClass(currentArray[0]);
-			currentPower.setLevel(Integer.parseInt(currentArray[1]));
-			currentPower.setName(currentArray[2]);
 
-			String source = currentArray[3];
+			String powerType = currentArray[1];
+			if (powerType.equals("attack")) {
+				currentPower.setPowerType(Power.PowerType.ATTACK);
+			} else if (powerType.equals("util")) {
+				currentPower.setPowerType(Power.PowerType.UTILITY);
+			} else {
+				currentPower.setPowerType(Power.PowerType.NONE);
+			}
+
+			currentPower.setLevel(Integer.parseInt(currentArray[2]));
+			currentPower.setName(currentArray[3]);
+
+			String source = currentArray[4];
 			if (source.equals("div")) {
 				currentPower.setSource(CharClass.Source.DIVINE);
 			} else if (source.equals("arc")) {
@@ -208,7 +220,7 @@ public class CSVLoader {
 				currentPower.setSource(CharClass.Source.SHADOW);
 			}
 
-			String damageType = currentArray[4];
+			String damageType = currentArray[5];
 			if (damageType.equals("acid")) {
 				currentPower.setDamageType(Power.DamageType.ACID);
 			} else if (damageType.equals("cold")) {
@@ -233,7 +245,7 @@ public class CSVLoader {
 				currentPower.setDamageType(Power.DamageType.NONE);
 			}
 
-			String effectType = currentArray[5];
+			String effectType = currentArray[6];
 			if (effectType.equals("charm")) {
 				currentPower.setEffectType(Power.EffectType.CHARM);
 			} else if (effectType.equals("conj")) {
@@ -262,7 +274,7 @@ public class CSVLoader {
 				currentPower.setEffectType(Power.EffectType.NONE);
 			}
 
-			String attackRange = currentArray[6];
+			String attackRange = currentArray[7];
 			if (attackRange.equals("melee")) {
 				currentPower.setAttackType(Power.AttackRange.MELEE);
 			} else if (attackRange.equals("close")) {
@@ -275,9 +287,11 @@ public class CSVLoader {
 				currentPower.setAttackType(Power.AttackRange.PERSONAL);
 			} else if (attackRange.equals("weapon")) {
 				currentPower.setAttackType(Power.AttackRange.WEAPON);
+			} else {
+				currentPower.setAttackType(Power.AttackRange.NONE);
 			}
 
-			String frequency = currentArray[7];
+			String frequency = currentArray[8];
 			if (frequency.equals("will")) {
 				currentPower.setFreq(Power.Frequency.AT_WILL);
 			} else if (frequency.equals("enc")) {
@@ -286,7 +300,7 @@ public class CSVLoader {
 				currentPower.setFreq(Power.Frequency.DAILY);
 			}
 
-			String action = currentArray[8];
+			String action = currentArray[9];
 			if (action.equals("minor")) {
 				currentPower.setAction(Power.Action.MINOR);
 			} else if (action.equals("move")) {
@@ -300,8 +314,10 @@ public class CSVLoader {
 			} else {
 				currentPower.setAction(Power.Action.NONE);
 			}
+			
+			currentPower.setRequirement(currentArray[10]);
 
-			String weaponType = currentArray[9];
+			String weaponType = currentArray[11];
 			if (weaponType.equals("weapon")) {
 				currentPower.setWeaponType(Power.WeaponType.WEAPON);
 			} else if (weaponType.equals("impl")) {
@@ -310,19 +326,32 @@ public class CSVLoader {
 				currentPower.setWeaponType(Power.WeaponType.NONE);
 			}
 
-			currentPower.setTarget(currentArray[10]);
-			currentPower.setFlavorText(currentArray[11].replace(';', ','));
-			currentPower.setAttackCheck(currentArray[12]);
+			String areaType = currentArray[12];
+			if (areaType.equals("burst")) {
+				currentPower.setAreaType(Power.AreaType.BURST);
+			} else if (areaType.equals("wall")) {
+				currentPower.setAreaType(Power.AreaType.WALL);
+			} else if (areaType.equals("weapon")) {
+				currentPower.setAreaType(Power.AreaType.WEAPON);
+			} else {
+				currentPower.setAreaType(Power.AreaType.NONE);
+			}
+
 			currentPower.setAoe(Integer.parseInt(currentArray[13]));
 			currentPower.setRange(Integer.parseInt(currentArray[14]));
-			currentPower.setTrigger(currentArray[15]);
-			currentPower.setHit(currentArray[16].replace(';', ','));
-			currentPower.setMiss(currentArray[17].replace(';', ','));
-			currentPower.setEffect(currentArray[18].replace(';', ','));
-			currentPower.setSpecial(currentArray[19].replace(';', ','));
 
+			currentPower.setTarget(currentArray[15]);
+			currentPower.setFlavorText(currentArray[16].replace(';', ','));
+			currentPower.setAttackCheck(currentArray[17]);
+			currentPower.setTrigger(currentArray[18]);
+			currentPower.setHit(currentArray[19].replace(';', ','));
+			currentPower.setMiss(currentArray[20].replace(';', ','));
+			currentPower.setEffect(currentArray[21].replace(';', ','));
+			currentPower.setSpecial(currentArray[22].replace(';', ','));
+			
+			
 			currentPower.setFormattedReq(currentPower.getReqClass() + " "
-					+ currentPower.getLevel());
+					+ currentPower.getPowerType() + currentPower.getLevel());
 
 			String attributes = "<b>" + currentPower.getFreq() + " ✦ "
 					+ currentPower.getSource();
@@ -338,14 +367,36 @@ public class CSVLoader {
 			Power.WeaponType wt;
 			if ((wt = currentPower.getWeaponType()) != Power.WeaponType.NONE)
 				attributes += ", " + wt;
-
+			
 			Power.Action act;
 			if ((act = currentPower.getAction()) != Power.Action.NONE)
 				attributes += "<br>" + act + " Action</b>";
 
-			attributes += "<br><b>Target:</b> " + currentPower.getTarget();
+			Power.AttackRange ar;
+			if ((ar = currentPower.getAttackType()) != Power.AttackRange.NONE)
+				attributes += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>" + ar + "</b> ";
+
+			Power.AreaType at;
+			if ((at = currentPower.getAreaType()) != Power.AreaType.NONE)
+				attributes += at + " ";
+
+			int aoe;
+			if ((aoe = currentPower.getAoe()) != 0)
+				attributes += aoe + " ";
+
+			int range;
+			if (((range = currentPower.getRange()) != 0) && (aoe != 0)) {
+				attributes += "with range " + range;
+			} else if (range != 0) {
+				attributes += range;
+			}
 
 			String s;
+			if (!(s = currentPower.getRequirement()).equals("") && !s.equals("none"))
+				attributes += "<br><b>Requirement:</b> " + s;
+			attributes += "<br><b>Target:</b> " + currentPower.getTarget();
+
+
 			if (!(s = currentPower.getAttackCheck()).equals(""))
 				attributes += "<br><b>Attack:</b> " + s;
 
