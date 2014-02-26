@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,7 +54,8 @@ public class AbilityAdapter extends BaseAdapter {
 			v.getName().setText(power.getName());
 			v.getFlavorText().setText(power.getFlavorText());
 			v.getReq().setText(power.getFormattedReq());
-			v.getAttributes().setText(power.getFormattedAttributes());
+			v.getAttributes().setText(Html.fromHtml(power.getFormattedAttributes()));
+			v.getEffect().setText(Html.fromHtml(power.getFormattedEffect()));
 		}
 		return v;
 	}

@@ -21,55 +21,61 @@ import com.dmurphy.dnd.csheet.R;
 import com.dmurphy.dnd.csheet.character.Power;
 
 public class AtWillFragment extends Fragment {
-    private MainActivity activity;
-    private Vibrator vibe;
-    private ListView list;
+	private MainActivity activity;
+	private Vibrator vibe;
+	private ListView list;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.list_fragment, container, false);
+		// Inflate the layout for this fragment
+		View v = inflater.inflate(R.layout.list_fragment, container, false);
 
-        activity = (MainActivity) getActivity();
-        vibe = activity.getVibe();
+		activity = (MainActivity) getActivity();
+		vibe = activity.getVibe();
 
-        Button previous = (Button) v.findViewById(R.id.previousButton);
-        Button next = (Button) v.findViewById(R.id.nextButton);
+		Button previous = (Button) v.findViewById(R.id.previousButton);
+		Button next = (Button) v.findViewById(R.id.nextButton);
 
-        List<Power> fullPowerList = activity.getPowers();
-        List<Power> powerList = new ArrayList<Power>();
-        for (int i = 0; i < fullPowerList.size(); i++) {
-            Power currentPower = fullPowerList.get(i);
-            if (currentPower.getReqClass().equals(activity.getCharacter().getClassChoice().getName())) powerList.add(currentPower);
-        }
-        AbilityAdapter adapter = new AbilityAdapter(v.getContext(), (ArrayList<Power>) powerList);
+		List<Power> fullPowerList = activity.getPowers();
+		List<Power> powerList = new ArrayList<Power>();
+		for (int i = 0; i < fullPowerList.size(); i++) {
+			Power currentPower = fullPowerList.get(i);
+			if (currentPower.getReqClass().equals(
+					activity.getCharacter().getClassChoice().getName())
+					&& currentPower.getFreq() == Power.Frequency.AT_WILL)
+				powerList.add(currentPower);
+		}
+		AbilityAdapter adapter = new AbilityAdapter(v.getContext(),
+				(ArrayList<Power>) powerList);
 
-        list = (ListView) v.findViewById(R.id.list);
-        list.setAdapter(adapter);
-        list.setDivider(new ColorDrawable(android.R.color.transparent));
-        list.setDividerHeight(30);
+		list = (ListView) v.findViewById(R.id.list);
+		list.setAdapter(adapter);
+		list.setDivider(new ColorDrawable(android.R.color.transparent));
+		list.setDividerHeight(30);
 
-        TextView title = (TextView) v.findViewById(R.id.abilityName);
-        title.setText(R.string.at_will);
+		TextView title = (TextView) v.findViewById(R.id.abilityName);
+		title.setText(R.string.at_will);
 
-        next.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                vibe.vibrate(50);
-                activity.swapFragment(new EncounterFragment(), "encounter_fragment");
-            }
-        });
+		next.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				vibe.vibrate(50);
+				activity.swapFragment(new EncounterFragment(),
+						"encounter_fragment");
+			}
+		});
 
-        previous.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vibe.vibrate(50);
-                getFragmentManager().popBackStack();
-            }
-        });
+		previous.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				vibe.vibrate(50);
+				getFragmentManager().popBackStack();
+			}
+		});
 
-        return v;
-    }
+		return v;
+	}
 
 }

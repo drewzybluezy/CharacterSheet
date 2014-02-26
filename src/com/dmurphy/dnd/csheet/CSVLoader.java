@@ -316,72 +316,53 @@ public class CSVLoader {
 			currentPower.setAoe(Integer.parseInt(currentArray[13]));
 			currentPower.setRange(Integer.parseInt(currentArray[14]));
 			currentPower.setTrigger(currentArray[15]);
-			currentPower.setHit(currentArray[16]);
-			currentPower.setMiss(currentArray[17]);
-			currentPower.setSpecial(currentArray[18]);
+			currentPower.setHit(currentArray[16].replace(';', ','));
+			currentPower.setMiss(currentArray[17].replace(';', ','));
+			currentPower.setEffect(currentArray[18].replace(';', ','));
+			currentPower.setSpecial(currentArray[19].replace(';', ','));
 
 			currentPower.setFormattedReq(currentPower.getReqClass() + " "
 					+ currentPower.getLevel());
 
-			String freq = "";
-			switch (currentPower.getFreq()) {
-			case AT_WILL:
-				freq = "At-Will";
-				break;
-			case ENCOUNTER:
-				freq = "Encounter";
-				break;
-			case DAILY:
-				freq = "Daily";
-				break;
-			}
+			String attributes = "<b>" + currentPower.getFreq() + " ✦ "
+					+ currentPower.getSource();
 
-			String sSource = "";
-			switch (currentPower.getSource()) {
-			case ARCANE:
-				sSource = "Arcane";
-				break;
-			case DIVINE:
-				sSource = "Divine";
-				break;
-			case MARTIAL:
-				sSource = "Martial";
-				break;
-			case PSIONIC:
-				sSource = "Psionic";
-				break;
-			case PRIMAL:
-				sSource = "Primal";
-				break;
-			case SHADOW:
-				sSource = "Shadow";
-				break;
-			}
+			Power.DamageType dt;
+			if ((dt = currentPower.getDamageType()) != Power.DamageType.NONE)
+				attributes += ", " + dt;
 
-			String sAction = "";
-			switch (currentPower.getAction()) {
-			case MINOR:
-				sAction = "Minor";
-				break;
-			case MOVE:
-				sAction = "Move";
-				break;
-			case STANDARD:
-				sAction = "Standard";
-				break;
-			case FREE:
-				sAction = "Free";
-				break;
-			case IMMEDIATE:
-				sAction = "Immediate";
-				break;
-			case NONE:
-			}
+			Power.EffectType et;
+			if ((et = currentPower.getEffectType()) != Power.EffectType.NONE)
+				attributes += ", " + et;
 
-			currentPower.setFormattedAttributes(freq + " ✦ " + sSource + ", \n"
-					+ sAction + " Action" + "\nTarget: "
-					+ currentPower.getTarget() + "\nAttack: "
-					+ currentPower.getAttackCheck());
+			Power.WeaponType wt;
+			if ((wt = currentPower.getWeaponType()) != Power.WeaponType.NONE)
+				attributes += ", " + wt;
+
+			Power.Action act;
+			if ((act = currentPower.getAction()) != Power.Action.NONE)
+				attributes += "<br>" + act + " Action</b>";
+
+			attributes += "<br><b>Target:</b> " + currentPower.getTarget();
+
+			String s;
+			if (!(s = currentPower.getAttackCheck()).equals(""))
+				attributes += "<br><b>Attack:</b> " + s;
+
+			currentPower.setFormattedAttributes(attributes);
+
+			String effect = "";
+			if (!(s = currentPower.getHit()).equals("") && !s.equals("none"))
+				effect += "<b>Hit:</b> " + s;
+			if (!(s = currentPower.getMiss()).equals("") && !s.equals("none"))
+				effect += "<br><b>Miss:</b> " + s;
+			if (!(s = currentPower.getEffect()).equals("") && !s.equals("none"))
+				effect += "<br><b>Effect:</b> " + s;
+			if (!(s = currentPower.getSpecial()).equals("")
+					&& !s.equals("none"))
+				effect += "<br><b>Special:</b> " + s;
+
+			currentPower.setFormattedEffect(effect);
 			powers.add(currentPower);
 		}
 
@@ -559,44 +540,6 @@ public class CSVLoader {
 	}
 
 	private static String buildClassDescription(CharClass c) {
-		String role = "";
-		switch (c.getRole()) {
-		case LEADER:
-			role = "Leader";
-			break;
-		case STRIKER:
-			role = "Striker";
-			break;
-		case DEFENDER:
-			role = "Defender";
-			break;
-		case CONTROLLER:
-			role = "Controller";
-			break;
-		}
-
-		String source = "";
-		switch (c.getSource()) {
-		case MARTIAL:
-			source = "Martial";
-			break;
-		case ARCANE:
-			source = "Arcane";
-			break;
-		case DIVINE:
-			source = "Divine";
-			break;
-		case PSIONIC:
-			source = "Psionic";
-			break;
-		case PRIMAL:
-			source = "Primal";
-			break;
-		case SHADOW:
-			source = "Shadow";
-			break;
-		}
-
 		boolean[] availArmors = c.getAvailableArmors();
 
 		String armor = "";
@@ -692,11 +635,11 @@ public class CSVLoader {
 			features = features.substring(0, features.length() - 2);
 		}
 
-		String descript = "Role: " + role + "\nPower Source: " + source
-				+ "\n\nArmor: " + armor + "\n\nWeapons: " + weapons + implement
-				+ "\n\nBonuses to Defense: " + defBonuses + "\n\nHP @ Lvl 1: "
-				+ c.getBaseHP() + " + Cons. score" + "\nHP/Lvl: "
-				+ c.getHpPerLevel() + "\nHealing Surges/Day: "
+		String descript = "Role: " + c.getRole() + "\nPower Source: "
+				+ c.getSource() + "\n\nArmor: " + armor + "\n\nWeapons: "
+				+ weapons + implement + "\n\nBonuses to Defense: " + defBonuses
+				+ "\n\nHP @ Lvl 1: " + c.getBaseHP() + " + Cons. score"
+				+ "\nHP/Lvl: " + c.getHpPerLevel() + "\nHealing Surges/Day: "
 				+ c.getHealingSurgesPerDay() + " + Cons. mod"
 				+ "\n\nTrained Skills: " + skills + "\n\nBuild options: "
 				+ buildOptions + "\n\nClass Features: " + features;

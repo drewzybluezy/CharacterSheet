@@ -26,33 +26,124 @@ public class Power {
 	private String miss;
 	private String effect;
 	private String special;
-	
+
 	private String formattedReq;
 	private String formattedAttributes;
 	private String formattedEffect;
 
 	public enum Frequency {
-		AT_WILL, ENCOUNTER, DAILY
+		AT_WILL("At-Will"), ENCOUNTER("Encounter"), DAILY("Daily");
+
+		private final String name;
+
+		private Frequency(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public enum Action {
-		NONE, MINOR, MOVE, STANDARD, FREE, IMMEDIATE
+		NONE("None"), MINOR("Minor"), MOVE("Move"), STANDARD("Standard"), FREE(
+				"Free"), IMMEDIATE("IMMEDIATE");
+
+		private final String name;
+
+		private Action(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public enum AttackRange {
-		MELEE, CLOSE, AREA, RANGED, PERSONAL, WEAPON
+		MELEE("Melee"), CLOSE("Close"), AREA("Area"), RANGED("Ranged"), PERSONAL(
+				"Personal"), WEAPON("Melee or Ranged");
+
+		private final String name;
+
+		private AttackRange(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public enum DamageType {
-		NONE, ACID, COLD, FIRE, FORCE, LIGHTNING, NECROTIC, POISON, PSYCHIC, RADIANT, THUNDER
+		NONE(""), ACID("Acid"), COLD("Cold"), FIRE("Fire"), FORCE("Force"), LIGHTNING(
+				"Lightning"), NECROTIC("Necrotic"), POISON("Poison"), PSYCHIC(
+				"Psychic"), RADIANT("Radiant"), THUNDER("Thunder");
+
+		private final String name;
+
+		private DamageType(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public enum EffectType {
-		CHARM, CONJURATION, FEAR, HEALING, ILLUSION, POISON, POLYMORPH, RELIABLE, SLEEP, STANCE, TELEPORT, ZONE, NONE
+		CHARM("Charm"), CONJURATION("Conjuration"), FEAR("Fear"), HEALING(
+				"Healing"), ILLUSION("Illusion"), POISON("Poison"), POLYMORPH(
+				"Polymorph"), RELIABLE("Reliable"), SLEEP("Sleep"), STANCE(
+				"Stance"), TELEPORT("Teleport"), ZONE("Zone"), NONE("");
+
+		private final String name;
+
+		private EffectType(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public enum WeaponType {
-		IMPLEMENT, WEAPON, NONE
+		IMPLEMENT("Implement"), WEAPON("Weapon"), NONE("");
+
+		private final String name;
+
+		private WeaponType(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public String getName() {

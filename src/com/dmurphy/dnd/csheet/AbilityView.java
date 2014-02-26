@@ -3,6 +3,7 @@ package com.dmurphy.dnd.csheet;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,8 @@ public class AbilityView extends RelativeLayout {
 		name.setText(power.getName());
 		flavorText.setText(power.getFlavorText());
 		req.setText(power.getFormattedReq());
-		attributes.setText(power.getFormattedAttributes());
+		attributes.setText(Html.fromHtml(power.getFormattedAttributes()));
+		effect.setText(Html.fromHtml(power.getFormattedEffect()));
 	}
 
 	public AbilityView(Context context, AttributeSet attrs, int defStyle) {

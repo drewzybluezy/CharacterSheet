@@ -1,7 +1,7 @@
 package com.dmurphy.dnd.csheet.fragment;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 
 import android.app.Fragment;
 import android.graphics.drawable.ColorDrawable;
@@ -39,28 +39,17 @@ public class EncounterFragment extends Fragment {
 		Button next = (Button) v.findViewById(R.id.nextButton);
 		
 		
-		ArrayList<Power> powerList = new ArrayList<Power>();
-		for (int i = 0; i < 20; i++) {
-			Power currentPower = new Power();
-			currentPower.setName(i + "");
-			currentPower
-					.setFlavorText("You win the game. Automatically. For no reason at all.\nIt's actually kind of bumming you out at not having played the game.");
-			Random r = new Random();
-			int j = r.nextInt(3);
-			switch (j) {
-			case 0:
-				currentPower.setFreq(Power.Frequency.ENCOUNTER);
-				break;
-			case 1:
-				currentPower.setFreq(Power.Frequency.AT_WILL);
-				break;
-			case 2:
-				currentPower.setFreq(Power.Frequency.DAILY);
-				break;
-			}
-			powerList.add(currentPower);
+		List<Power> fullPowerList = activity.getPowers();
+		List<Power> powerList = new ArrayList<Power>();
+		for (int i = 0; i < fullPowerList.size(); i++) {
+			Power currentPower = fullPowerList.get(i);
+			if (currentPower.getReqClass().equals(
+					activity.getCharacter().getClassChoice().getName())
+					&& currentPower.getFreq() == Power.Frequency.ENCOUNTER)
+				powerList.add(currentPower);
 		}
-		AbilityAdapter adapter = new AbilityAdapter(v.getContext(), powerList);
+		AbilityAdapter adapter = new AbilityAdapter(v.getContext(),
+				(ArrayList<Power>) powerList);
 
 		list = (ListView) v.findViewById(R.id.list);
 		list.setAdapter(adapter);

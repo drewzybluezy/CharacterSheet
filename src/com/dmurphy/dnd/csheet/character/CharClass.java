@@ -25,11 +25,41 @@ public class CharClass {
 	private List<String> features;
 
 	public enum Role {
-		LEADER, DEFENDER, CONTROLLER, STRIKER
+		LEADER("Leader"), DEFENDER("Defender"), CONTROLLER("Controller"), STRIKER(
+				"Striker");
+
+		private final String name;
+
+		private Role(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public enum Source {
-		ARCANE, DIVINE, MARTIAL, PSIONIC, PRIMAL, SHADOW
+		ARCANE("Arcane"), DIVINE("Divine"), MARTIAL("Martial"), PSIONIC(
+				"Psionic"), PRIMAL("Primal"), SHADOW("Shadow");
+
+		private final String name;
+
+		private Source(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			return (otherName == null) ? false : name.equals(otherName);
+		}
+
+		public String toString() {
+			return name;
+		}
 	}
 
 	public String getName() {
